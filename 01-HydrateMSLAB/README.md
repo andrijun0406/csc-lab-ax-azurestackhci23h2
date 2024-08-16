@@ -8,18 +8,7 @@ Please note that the Domain controller here is unique to this Lab and can not be
 * I'm using a medium Hyper-V host VM with 16 vCPU and 48 GB of RAM. This time I only need to run DC, WAC, Management and MDT VMs not the actual Azure Stack HCI Nodes, because they will run as physical instead of nested VM.
 * I'm also using Windows Server 2022 Datacenter Edition. This Hyper-V hosts will run a nested VM for azure stack HCI cluster nodes
 * This Hyper-V host VM only have about 600GB, this should be enough since I'm not going to use nested Azure Stack HCI nodes VHDX here.
-
-However, for your environment and also depending what you want to do with it you can start with minimum as the following:
-
-* Client or Server Operating System that supports Hyper-V (Windows 10 Pro, Windows 11 Pro or Windows Server)
-
-* Hyper-V feature has to be enabled (tool will check it for you)
-
-* at least 16GB RAM
-
-* at least 100GB free space on SSD
-
-* Optionally you can setup VM in Azure Virtual Machine.
+* THe Hyper-V Hosts will need to run somewhere outside of the physical AX nodes. In this Lab I'm using existing vSphere Cluster to run Hyper-V Host VM.
 
 ### Task 2 - Configure the Hyper-V Hosts VM from VSphere
 
