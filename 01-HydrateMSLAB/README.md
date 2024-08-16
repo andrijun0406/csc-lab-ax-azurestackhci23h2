@@ -5,7 +5,7 @@ Please note that the Domain controller here is unique to this Lab and can not be
 
 ### Task 1 - Check hardware requirement
 
-* I'm using a large Hyper-V host VM with 48 vCPU and 384 GB of RAM. Just to make sure I can run all services like AKS and Azure Arc Enabled Data/App Services with ease
+* I'm using a medium Hyper-V host VM with 16 vCPU and 48 GB of RAM. This time I only need to run DC, WAC, Management and MDT VMs not the actual Azure Stack HCI Nodes, because they will run as physical instead of nested VM.
 * I'm also using Windows Server 2022 Datacenter Edition. This Hyper-V hosts will run a nested VM for azure stack HCI cluster nodes
 * This Hyper-V host VM also has two VHDX one is for OS (127GB) and another one is for MSLAB (5TB)
 
