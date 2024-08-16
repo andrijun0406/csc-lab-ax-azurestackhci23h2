@@ -7,7 +7,7 @@ Please note that the Domain controller here is unique to this Lab and can not be
 
 * I'm using a medium Hyper-V host VM with 16 vCPU and 48 GB of RAM. This time I only need to run DC, WAC, Management and MDT VMs not the actual Azure Stack HCI Nodes, because they will run as physical instead of nested VM.
 * I'm also using Windows Server 2022 Datacenter Edition. This Hyper-V hosts will run a nested VM for azure stack HCI cluster nodes
-* This Hyper-V host VM only have about 600GB, this should be enough since I'm not going to use nested Azure Stack HCI nodes VHDX here.
+* This Hyper-V host VM also has two VHDX one is for OS (127GB) and another one is for MSLAB (5TB)
 
 However, for your environment and also depending what you want to do with it you can start with minimum as the following:
 
@@ -21,42 +21,15 @@ However, for your environment and also depending what you want to do with it you
 
 * Optionally you can setup VM in Azure Virtual Machine.
 
-### Task 2 - Configure the Hyper-V Hosts VM from VSphere
-
-#### Step 1 - Enable Nested Vritualization
-
-Since we are running nested virtualization, we need to expose Hardware Assisted Virtualization to the Hyper-V Host VM on vSphere (I currently use vSphere here)
-
-![Expose hardware assisted virtualization](images/expose-hav.png)
-
-#### Step 2 - Enable Mac Address Spoofing
-
-Since our nested VM require access to outside (e.g. internet) we need to enable MAC address spoofing. To do that in vSphere, edit te Port Group settings in Distributed Virtual Switch (DVS).
-
-![Enable MAC Address Spoofing1](images/enable-macspoofing1.png)
-![Enable MAC Address Spoofing2](images/enable-macspoofing2.png)
-
-### Task 3 - Enable Hyper-V on the Hyper-V Hosts
-
-Let's make sure we enable Hyper-V and Hyper-V management (GUI and PowerShell) on the Hyper-V host.
-
-```powershell
-$Result=Install-WindowsFeature -Name "Hyper-V" -ErrorAction SilentlyContinue
-    if ($result.ExitCode -eq "failed"){
-        Enable-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V -Online -NoRestart 
-    }
-Install-WindowsFeature -Name "Hyper-V-Tools","Hyper-V-PowerShell"
-```
-
-### Task 4 - Download all neccessary files
+### Task 2 - Download all neccessary files
 
 * MSLab scripts : [MSLab](https://aka.ms/mslab) make sure you are using the latest (currently its v24.05.1)
 * latest Windows Server ISO: [MSDN Download](https://my.visualstudio.com/downloads) requires Visual Studio users.
 * latest Azure Stack HCI ISO: [23H2](https://azure.microsoft.com/en-us/products/azure-stack/hci/hci-download/) requires login to azure portal.
 
-### Task 5 - Hydrate Lab
+### Task 3 - Hydrate Lab
 
-1. Unzip files from MSLab zip folder into C:\MSLAB
+1. Unzip files from MSLab zip folder into D:\MSLAB (volume from MSLAB VHDX where you have enough space here ~5TB)
 ![Initial MSLAB folder](images/MSLAB-folder-initial.png)
 2. Replace content of LabConfig.ps1 with the following:
 > Don't forget to add Admin and Password, We deliberately leave empty here for security purposes. Customize according to your environment.
@@ -98,7 +71,7 @@ $LabConfig=@{
 in MSLAB folder you should see LAB and ParentDisks folder along with three PowerShell scripts and log files.
 ![MSLAB folder hydrated](images/MSLAB-folder-hydrate.png)
 
-### Task 6 - Create Azure Stack HCI parent disk
+### Task 4 - Create Azure Stack HCI parent disk
 
 1. Navigate to MSLAB folder and open ParentDisks folder
 2. Right-click on CreateParentDisk.ps1 and select **Run with PowerShell**
