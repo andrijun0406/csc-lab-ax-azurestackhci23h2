@@ -12,7 +12,7 @@ Please note that the Domain controller here is unique to this Lab and can not be
 
 ### Task 2 - Configure the Hyper-V Hosts VM from VSphere
 
-#### Step 1 - Enable Nested Vritualization
+#### Step 1 - Enable Nested Virtualization
 
 Since we are running nested virtualization, we need to expose Hardware Assisted Virtualization to the Hyper-V Host VM on vSphere (I currently use vSphere here)
 
