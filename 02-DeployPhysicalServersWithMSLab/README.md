@@ -6,7 +6,7 @@ Now we are going deploy AX nodes using MDT (Microsoft Deployment Toolkit)
 
 This is the network diagram of the Lab:
 
-![Network Diagram](images/network-diagram.png)
+![Network Diagram](images/Network-Diagram.png)
 
 ### Task 2 - Create Azure Stack HCI parent disk
 
